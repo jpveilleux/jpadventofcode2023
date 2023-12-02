@@ -1,11 +1,9 @@
 package day1
 
 import println
-import readInput
 import utils.Setup
-import kotlin.math.*
 
-val daySetup = Setup(1);
+val daySetup = Setup(1)
 
 fun main() {
     fun getLineNumbers(line: String): Int{
@@ -17,28 +15,22 @@ fun main() {
             it.isDigit()
         }.digitToInt()
         
-        val number = (firstDigit.toString() + lastDigit.toString()).toInt()
-        
-        println(number)
-        
-        return number
+        return (firstDigit.toString() + lastDigit.toString()).toInt()
     }
     
-    
-    fun part1(input: List<String>): Int {
-        val numbers = mutableListOf<Int>()
+    fun getLineNumbers(firstLineNumber: String, lastLineNumber: String): Int {
+        val firstDigit = firstLineNumber.first {
+            it.isDigit()
+        }.digitToInt()
         
-        for (line in input) {
-            numbers.add(getLineNumbers(line));
-        }
+        val lastDigit = lastLineNumber.last {
+            it.isDigit()
+        }.digitToInt()
         
-        println(numbers.sum())
-        
-        return numbers.sum();
+        return (firstDigit.toString() + lastDigit.toString()).toInt()
     }
     
-   
-    fun part2(input: List<String>): Int {
+    fun processTextNumbers(input: List<String>): MutableList<Int> {
         val stringNumberList = listOf("one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
         val stringToNumber = mapOf(
             "one" to 1,
@@ -51,31 +43,60 @@ fun main() {
             "eight" to 8,
             "nine" to 9
         )
-        
-        // TODO: Replace each of the nbrString found using line.replaceRange(startIndex, endIndex) where startIndex is
-        // TODO: given by the first param of the pair returned from the findAnyOf and the endIndex is the length of
-        // TODO: the second pair param -1 | These should be replaced using the stringToNumber with the second pair param
-        // TODO: as the index with .toString()
+        val processedNumbers = mutableListOf<Int>()
         
         for (line in input) {
-            println(line.findAnyOf(stringNumberList, 0, true));
-            println(line.findLastAnyOf(stringNumberList, line.length, true));
+            var firstNumberLine = ""
+            val firstStringNumber = line.findAnyOf(stringNumberList, 0, true)
+            var lastNumberLine = ""
+            val lastStringNumber = line.findLastAnyOf(stringNumberList, line.length, true)
             
-            for (nbrString in stringNumberList) {
-                //println(nbrString)
-                val newLine = line.replaceFirst(nbrString, stringToNumber[nbrString].toString(), true)
-                // println(newLine)
+            firstStringNumber?.let {
+                val rangeStartFirst = firstStringNumber.first
+                val rangeEndFirst = firstStringNumber.second.length.let{(it + rangeStartFirst) - 1}
+
+                firstNumberLine = line.replaceRange(rangeStartFirst..rangeEndFirst, stringToNumber[firstStringNumber.second ?: ""].toString())
+            }
+            
+            lastStringNumber?.let {
+                val rangeStartSecond = lastStringNumber.first.toInt() ?: 0
+                val rangeEndSecond = lastStringNumber.second.length.let {(it + rangeStartSecond) - 1}
+                
+                lastNumberLine = line.replaceRange(rangeStartSecond..rangeEndSecond, stringToNumber[lastStringNumber.second ?: ""].toString())
+            }
+            
+            if (firstNumberLine.length > 0 && lastNumberLine.length > 0) {
+                processedNumbers.add(getLineNumbers(firstNumberLine, lastNumberLine))
+            } else {
+                val numberTest = getLineNumbers(line)
+                processedNumbers.add(getLineNumbers(line))
             }
         }
         
+        return processedNumbers
+    }
+    
+    fun part1(input: List<String>): Int {
+        val numbers = mutableListOf<Int>()
+        
+        for (line in input) {
+            numbers.add(getLineNumbers(line))
+        }
+        
+        return numbers.sum()
+    }
+    
+   
+    fun part2(input: List<String>): Int {
+        val processedNumbers = processTextNumbers(input)
+        
+        println(processedNumbers.sum())
+        
         return input.size
     }
-
-    // test if implementation meets criteria from the description, like:
-    //check(part1(daySetup.controlInput) == 142)
     
-    // part1(daySetup.controlInput).println()
+    //part1(daySetup.controlInput).println()
     //part1(daySetup.input).println()
-    part2(daySetup.controlInputPart2).println()
-    //part2(daySetup.input).println()
+    //part2(daySetup.controlInputPart2).println()
+    part2(daySetup.input).println()
 }
