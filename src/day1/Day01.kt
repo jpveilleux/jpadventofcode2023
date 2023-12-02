@@ -55,20 +55,19 @@ fun main() {
                 val rangeStartFirst = firstStringNumber.first
                 val rangeEndFirst = firstStringNumber.second.length.let{(it + rangeStartFirst) - 1}
 
-                firstNumberLine = line.replaceRange(rangeStartFirst..rangeEndFirst, stringToNumber[firstStringNumber.second ?: ""].toString())
+                firstNumberLine = line.replaceRange(rangeStartFirst..rangeEndFirst, stringToNumber[firstStringNumber.second].toString())
             }
             
             lastStringNumber?.let {
-                val rangeStartSecond = lastStringNumber.first.toInt() ?: 0
+                val rangeStartSecond = lastStringNumber.first
                 val rangeEndSecond = lastStringNumber.second.length.let {(it + rangeStartSecond) - 1}
                 
-                lastNumberLine = line.replaceRange(rangeStartSecond..rangeEndSecond, stringToNumber[lastStringNumber.second ?: ""].toString())
+                lastNumberLine = line.replaceRange(rangeStartSecond..rangeEndSecond, stringToNumber[lastStringNumber.second].toString())
             }
             
-            if (firstNumberLine.length > 0 && lastNumberLine.length > 0) {
+            if (firstNumberLine.isNotEmpty() && lastNumberLine.isNotEmpty()) {
                 processedNumbers.add(getLineNumbers(firstNumberLine, lastNumberLine))
             } else {
-                val numberTest = getLineNumbers(line)
                 processedNumbers.add(getLineNumbers(line))
             }
         }
