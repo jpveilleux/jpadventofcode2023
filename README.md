@@ -27,7 +27,7 @@ You can clone it within the IntelliJ IDEA whenever the [@actions-user][actions-u
 From now on, everything's in your hands!
 Join the [Advent of Code][aoc] contest to solve the *Day 01* as soon as it is published.
 
-Copy the `Day01.kt` solution file for the following days and increment the day number.
+Copy the `day1.kt` solution file for the following days and increment the day number.
 
 > [!NOTE]
 >
@@ -48,11 +48,11 @@ After you create a new project based on the current template repository using th
 ├── settings.gradle.kts     Gradle project settings
 ├── gradle*                 Gradle wrapper files
 └── src
-    ├── Day01.kt            An empty implementation for the first AoC day
+    ├── day1.kt            An empty implementation for the first AoC day
     ├── Utils.kt            A set of utility methods shared across your days
     │                       
     │                       (create those files manually)
-    ├── Day01.txt           An empty file for the Day 01 input data
+    ├── day1.txt           An empty file for the Day 01 input data
     └── Day01_test.txt      An optional Day 01 test input data used for checks
 ```
 
@@ -60,7 +60,7 @@ After you create a new project based on the current template repository using th
 >
 > All task input files (`src/*.txt`) are excluded from the repository with `.gitignore` – we should not post them publicly, as [Eric Wastl requested for](https://twitter.com/ericwastl/status/1465805354214830081).
 
-When the first puzzle appears, go to the `Day01.kt`, and for each `part1` and `part2` function, provide an algorithm implementation using the `input` data loaded from the `src/Day01.txt` file.
+When the first puzzle appears, go to the `day1.kt`, and for each `part1` and `part2` function, provide an algorithm implementation using the `input` data loaded from the `src/day1.txt` file.
 This input data is common for both parts, and you can find it at the bottom of each day on the [Advent of Code][aoc] page.
 
 To read the input data, you can go with the `readInput(name: String)` utility method provided in the [`Utils.kt`][file:utils] file, like:
@@ -71,7 +71,7 @@ fun main() {
         return input.size
     }
 
-    val input = readInput("Day01")
+    val input = readInput("day1")
     println(part1(input))
 }
 ```
@@ -84,7 +84,7 @@ To call the algorithm you're implementing, click the green Play button next to t
 
 > [!IMPORTANT]
 >
-> Create relevant files Before running tasks or tests, like: `src/Day01.txt` or `src/Day01_test.txt`.
+> Create relevant files Before running tasks or tests, like: `src/day1.txt` or `src/Day01_test.txt`.
 
 The [`Utils.kt`][file:utils] file also contains the `String.md5()` method for generating MD5 hash out of the given string and expects more helper functions for the sake of the [KISS principle][kiss].
 
