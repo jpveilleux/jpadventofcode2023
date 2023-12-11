@@ -93,12 +93,13 @@ fun main() {
                 }
                 println("Adj. Positions: ${enginePiece.positions} - Number: ${enginePiece.number}")
                 
-                
+                if(i > 0) {input[i-1].println()}
                 row.line.println()
                 for (i in 0 until enginePiece.positions[0]) {
-                    print('_')
+                    print('=')
                 }
                 print("^\n")
+                if(i < input.size - 1) {input[i+1].println()}
                 
                 enginePiece.adjacentPositions.sortWith(compareBy({ it.row }, { it.index }))
                 // enginePiece.adjacentPositions.println()
@@ -114,7 +115,7 @@ fun main() {
                     }
                 }
             }
-            println("-----------------------------")
+            println("#####################################################################")
         }
         
         listOfAllEnginePieces.println()
